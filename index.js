@@ -36,11 +36,21 @@ async function run() {
         await client.connect()
 
         const requestCollection = client.db("bloodDonation1").collection("bloodRequests");
+        const donorCollection = client.db("bloodDonation1").collection("donors");
 
-
+        // blood request
         app.post('/bloodRequest', async (req, res) => {
             const newRequest = req.body;
             const result = await requestCollection.insertOne(newRequest);
+            res.send(result)
+        })
+
+        // create new Donor 
+
+        app.post('/createDonor', async (req, res) => {
+            const donor = req.body;
+            const email = donor.email
+            const result = await donorCollection.insertOne(email)
             res.send(result)
         })
 
