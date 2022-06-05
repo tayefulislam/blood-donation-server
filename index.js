@@ -17,7 +17,7 @@ app.use(express.json())
 
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.69der.mongodb.net/?retryWrites=true&w=majority`;
-console.log(uri)
+// console.log(uri)
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 
@@ -49,8 +49,8 @@ async function run() {
 
         app.post('/createDonor', async (req, res) => {
             const donor = req.body;
-            const email = donor.email
-            const result = await donorCollection.insertOne(email)
+            console.log(donor)
+            const result = await donorCollection.insertOne(donor)
             res.send(result)
         })
 
