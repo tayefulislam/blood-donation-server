@@ -55,6 +55,33 @@ async function run() {
         })
 
 
+        // update profile 
+
+
+        app.post('/updateProfile', async (req, res) => {
+
+            const donor = req.body;
+
+            console.log(donor)
+            const filter = { email: donor.email }
+
+            const updatedProfile = {
+                $set: donor
+            }
+
+            const result = await donorCollection.updateOne(filter, updatedProfile)
+
+            console.log()
+
+            res.send(result)
+
+
+        })
+
+
+
+
+
 
 
 
