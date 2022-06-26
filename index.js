@@ -49,7 +49,7 @@ async function run() {
 
         app.post('/createDonor', async (req, res) => {
             const donor = req.body;
-            console.log(donor)
+            // console.log(donor)
             const result = await donorCollection.insertOne(donor)
             res.send(result)
         })
@@ -75,6 +75,22 @@ async function run() {
 
             res.send(result)
 
+
+        })
+
+
+        // get singel donor info
+
+
+        app.get('/profile/:email', async (req, res) => {
+
+            const email = req.params.email;
+
+            const result = await donorCollection.findOne({ email: email })
+
+            console.log(email)
+
+            res.send(result)
 
         })
 
