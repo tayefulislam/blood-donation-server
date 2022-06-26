@@ -95,6 +95,33 @@ async function run() {
         })
 
 
+        // get match blood request 
+
+        app.get('/bloodreqests/:group', async (req, res) => {
+
+            console.log(req.query)
+            const group = req.params.group
+            const { district } = req?.query;
+
+            console.log(group, district)
+
+
+            const query = { group: group, district: district };
+
+            const result = await requestCollection.find(query).sort({ _id: -1 }).toArray()
+
+            console.log(result)
+
+            res.send(result)
+
+
+
+        })
+
+
+
+
+
 
 
 
