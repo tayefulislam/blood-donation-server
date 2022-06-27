@@ -97,11 +97,11 @@ async function run() {
 
         // get match blood request 
 
-        app.get('/bloodreqests/:group', async (req, res) => {
+        app.get('/bloodreqests', async (req, res) => {
 
             console.log(req.query)
-            const group = req.params.group
-            const { district } = req?.query;
+            // const group = req.params.group
+            const { group, district } = req?.query;
 
             console.log(group, district)
 
@@ -117,6 +117,14 @@ async function run() {
 
 
         })
+
+
+
+
+
+
+
+
 
 
 
