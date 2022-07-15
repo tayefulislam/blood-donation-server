@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require('dotenv').config();
+const nodemailer = require("nodemailer");
 
 const app = express()
 const port = process.env.PORT || 5000
@@ -26,6 +27,36 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 //   // perform actions on the collection object
 //   client.close();
 // });
+
+
+
+
+// email system 
+
+function main(){
+
+
+
+    // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: 'email address', // generated ethereal user
+      pass: 'email password', // generated ethereal password
+    },
+  });
+
+
+
+
+
+}
+
+main().catch(console.error)
+
+
 
 
 
