@@ -28,23 +28,14 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 //   client.close();
 // });
 
-
-
-
-// email system 
-
-function main(){
-
-
-
-    // create reusable transporter object using the default SMTP transport
+  // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // true for 465, false for other ports
+    host: process.env.Email_Host,
+    port: 465,
+    secure: true, // true for 465, false for other ports
     auth: {
-      user: 'email address', // generated ethereal user
-      pass: 'email password', // generated ethereal password
+      user: process.env.Email_Address, // generated ethereal user
+      pass: process.env.Email_Password, // generated ethereal password
     },
   });
 
@@ -52,9 +43,9 @@ function main(){
 
 
 
-}
+// email system 
 
-main().catch(console.error)
+
 
 
 
@@ -69,11 +60,60 @@ async function run() {
         const requestCollection = client.db("bloodDonation1").collection("bloodRequests");
         const donorCollection = client.db("bloodDonation1").collection("donors");
 
+
+
+
+// send emails
+
+
+async function bloodRequestEmail(donorsEmail,newRequest){
+          console.log(donorsEmail,newRequest)
+
+
+    let newBloodRequestEmail = await transporter.sendMail({
+        from: '"Blood Donation 👻" <tayeful1@priyopathshala.com>', // sender address
+        to: donorsEmail, // list of receivers
+        subject: `Request for A+ Blood`, // Subject line
+        text: "Request for A+ Blood", // plain text body
+        html: "<b>Request for A+ Blood</b>", // html body
+      });
+
+
+
+    return ("Message sent: %s", newBloodRequestEmail.messageId)
+
+}
+
+
+
+
+
+
+
+
         // blood request
         app.post('/bloodRequest', async (req, res) => {
             const newRequest = req.body;
+
+            // console.log(newRequest)
+
+            // user user avaible check
+            const {group,district}=newRequest;   
+            const query = {group:group,district:district};
+            const availableDonor = await donorCollection.find(query,{email: 1}).sort({ _id: -1 }).toArray()
+
+            let donorsEmail=[]
+
+        availableDonor.map(donor=>donorsEmail.push(donor.email))
+
+            //  console.log(donorsEmail)
+ 
+            
             const result = await requestCollection.insertOne(newRequest);
             res.send(result)
+            bloodRequestEmail(donorsEmail,newRequest)
+
+            // console.log(availableDonor)
         })
 
         // create new Donor 
@@ -161,20 +201,6 @@ async function run() {
         })
 
         // check api
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
