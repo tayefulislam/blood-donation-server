@@ -67,15 +67,18 @@ async function run() {
 
 
 async function bloodRequestEmail(donorsEmail,newRequest){
-          console.log(donorsEmail,newRequest)
+  console.log(donorsEmail,newRequest)
+
+
+        const {group} =newRequest
 
 
     let newBloodRequestEmail = await transporter.sendMail({
         from: '"Blood Donation 👻" <tayeful1@priyopathshala.com>', // sender address
-        to: donorsEmail, // list of receivers
-        subject: `Request for A+ Blood`, // Subject line
-        text: "Request for A+ Blood", // plain text body
-        html: "<b>Request for A+ Blood</b>", // html body
+        bcc: donorsEmail, // list of receivers
+        subject: `Request for ${group} Blood`, // Subject line
+        text: `Request for ${group} Blood`, // plain text body
+        html: `<b>Request for ${group} Blood</b>`, // html body
       });
 
 
