@@ -74,7 +74,7 @@ async function bloodRequestEmail(donorsEmail,newRequest){
 
 
     let newBloodRequestEmail = await transporter.sendMail({
-        from: '"Blood Donation 👻" <tayeful1@priyopathshala.com>', // sender address
+        from: '"Blood Donation App 👻" <tayeful912@gmail.com>', // sender address
         bcc: donorsEmail, // list of receivers
         subject: `Request for ${group} Blood`, // Subject line
         text: `Request for ${group} Blood`, // plain text body
@@ -203,7 +203,7 @@ async function bloodRequestEmail(donorsEmail,newRequest){
 
         })
 
-        // check api
+        // check api 2
 
 
 
