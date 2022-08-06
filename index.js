@@ -5,7 +5,7 @@ const nodemailer = require("nodemailer");
 
 const app = express()
 const port = process.env.PORT || 5000
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 // middle ware
 
@@ -28,16 +28,16 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 //   client.close();
 // });
 
-  // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
+// create reusable transporter object using the default SMTP transport
+let transporter = nodemailer.createTransport({
     host: process.env.Email_Host,
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: process.env.Email_Address, // generated ethereal user
-      pass: process.env.Email_Password, // generated ethereal password
+        user: process.env.Email_Address, // generated ethereal user
+        pass: process.env.Email_Password, // generated ethereal password
     },
-  });
+});
 
 
 
@@ -63,29 +63,29 @@ async function run() {
 
 
 
-// send emails
+        // send emails
 
 
-async function bloodRequestEmail(donorsEmail,newRequest){
-  console.log(donorsEmail,newRequest)
+        async function bloodRequestEmail(donorsEmail, newRequest) {
+            console.log(donorsEmail, newRequest)
 
 
-        const {group} =newRequest
+            const { group } = newRequest
 
 
-    let newBloodRequestEmail = await transporter.sendMail({
-        from: '"Blood Donation App 👻" <tayeful912@gmail.com>', // sender address
-        bcc: donorsEmail, // list of receivers
-        subject: `Request for ${group} Blood`, // Subject line
-        text: `Request for ${group} Blood`, // plain text body
-        html: `<b>Request for ${group} Blood</b>`, // html body
-      });
+            let newBloodRequestEmail = await transporter.sendMail({
+                from: '"Blood Donation App 👻" <tayeful912@gmail.com>', // sender address
+                bcc: donorsEmail, // list of receivers
+                subject: `Request for ${group} Blood`, // Subject line
+                text: `Request for ${group} Blood`, // plain text body
+                html: `<b>Request for ${group} Blood</b>`, // html body
+            });
 
 
 
-    return ("Message sent: %s", newBloodRequestEmail.messageId)
+            return ("Message sent: %s", newBloodRequestEmail.messageId)
 
-}
+        }
 
 
 
@@ -101,20 +101,20 @@ async function bloodRequestEmail(donorsEmail,newRequest){
             // console.log(newRequest)
 
             // user user avaible check
-            const {group,district}=newRequest;   
-            const query = {group:group,district:district};
-            const availableDonor = await donorCollection.find(query,{email: 1}).sort({ _id: -1 }).toArray()
+            const { group, district } = newRequest;
+            const query = { group: group, district: district };
+            const availableDonor = await donorCollection.find(query, { email: 1 }).sort({ _id: -1 }).toArray()
 
-            let donorsEmail=[]
+            let donorsEmail = []
 
-        availableDonor.map(donor=>donorsEmail.push(donor.email))
+            availableDonor.map(donor => donorsEmail.push(donor.email))
 
             //  console.log(donorsEmail)
- 
-            
+
+
             const result = await requestCollection.insertOne(newRequest);
             res.send(result)
-            bloodRequestEmail(donorsEmail,newRequest)
+            bloodRequestEmail(donorsEmail, newRequest)
 
             // console.log(availableDonor)
         })
@@ -201,9 +201,28 @@ async function bloodRequestEmail(donorsEmail,newRequest){
 
             res.send(result)
 
+        });
+
+
+        // singel request 
+
+
+        app.get(`/requestDetails/:reqId`, async (req, res) => {
+            const reqId = req.params.reqId;
+            console.log(reqId);
+
+            const result = await requestCollection.findOne({ _id: ObjectId(reqId) })
+
+            console.log(result);
+            res.send(result)
+
+
         })
 
-        // check api 2
+
+
+
+
 
 
 
