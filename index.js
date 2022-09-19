@@ -89,11 +89,6 @@ async function run() {
 
 
 
-
-
-
-
-
         // blood request
         app.post('/bloodRequest', async (req, res) => {
             const newRequest = req.body;
@@ -175,7 +170,7 @@ async function run() {
 
             console.log(req.query)
             // const group = req.params.group
-            const { group, district } = req?.query;
+            const { group, district } = req.query;
 
             console.log(group, district)
 
@@ -218,6 +213,26 @@ async function run() {
 
 
         })
+
+
+        /*
+        
+        // Admin section 
+        
+        */
+
+        // get All User
+
+        app.get(`/admin/users`, async (req, res) => {
+
+            const result = await donorCollection.find().toArray()
+
+            res.send(result);
+
+        })
+
+
+
 
 
 
