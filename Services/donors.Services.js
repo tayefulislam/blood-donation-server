@@ -10,3 +10,14 @@ exports.updateDonorProfileService = async (filter, donor) => {
 
   return result;
 };
+exports.donorInfoService = async (email) => {
+  const result = await Donor.findOne({ email: email });
+
+  return result;
+};
+
+exports.getAllDonorInfoService = async (email) => {
+  const result = await Donor.find().sort({ _id: -1 });
+
+  return result;
+};

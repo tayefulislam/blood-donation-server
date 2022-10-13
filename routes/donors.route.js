@@ -8,4 +8,8 @@ router
   .post(donorController.createDonor)
   .patch(donorController.updateDonorProfile);
 
+router.route("/:email").get(donorController.donorInfo);
+
+router.route("/admin/users").get(donorController.getAllDonorInfo);
+
 module.exports = router;
