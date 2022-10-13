@@ -6,7 +6,11 @@ exports.createDonorService = async (newDonor) => {
 };
 
 exports.updateDonorProfileService = async (filter, donor) => {
-  const result = await Donor.updateOne(filter, donor);
+  const result = await Donor.updateOne(
+    filter,
+    { $set: donor },
+    { runValidators: true }
+  );
 
   return result;
 };
