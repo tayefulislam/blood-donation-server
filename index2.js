@@ -90,6 +90,7 @@ async function run() {
 
       const result = await requestCollection.insertOne(newRequest);
       res.send(result);
+
       bloodRequestEmail(donorsEmail, newRequest);
 
       // console.log(availableDonor)
