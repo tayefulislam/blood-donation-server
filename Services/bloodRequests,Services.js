@@ -5,7 +5,13 @@ exports.makeBloodRequestsService = async (newRequest) => {
   return result;
 };
 
-exports.getBloodRequestsSerive = async (query) => {
-  const result = await bloodRequests.find().sort({ _id: -1 });
+exports.getBloodRequestsSerive = async (queries) => {
+  console.log(queries);
+  const result = await bloodRequests.find(queries).sort({ _id: -1 });
+  // console.log(result);
+  return result;
+};
+exports.getBloodRequestByIdSerive = async (id) => {
+  const result = await bloodRequests.find({ _id: id });
   return result;
 };

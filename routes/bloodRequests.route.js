@@ -8,4 +8,6 @@ router
   .post(bloodRequestsController.makeBloodRequests)
   .get(bloodRequestsController.getBloodRequests);
 
+router.route("/:id").get(bloodRequestsController.getBloodRequestById);
+
 module.exports = router;
