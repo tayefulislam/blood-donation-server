@@ -33,6 +33,7 @@ const DonorShema = mongoose.Schema(
       type: String,
       trim: true,
       required: [true, "Please write down your address"],
+      unique: true,
     },
   },
   { timestamps: true }
