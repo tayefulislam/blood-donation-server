@@ -3,6 +3,9 @@ const router = express.Router();
 
 const bloodRequestsController = require("../Controllers/bloodRequests.Controller");
 
-router.route("/").post(bloodRequestsController.makeBloodRequests);
+router
+  .route("/")
+  .post(bloodRequestsController.makeBloodRequests)
+  .get(bloodRequestsController.getBloodRequests);
 
 module.exports = router;
