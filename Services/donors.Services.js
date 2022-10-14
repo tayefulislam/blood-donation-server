@@ -1,7 +1,9 @@
 const Donor = require("../models/Donor");
 
 exports.createDonorService = async (newDonor) => {
-  const result = await Donor.create(newDonor);
+  console.log(newDonor);
+  const result = await Donor.create(newDonor, { runValidators: true });
+  console.log(result);
   return result;
 };
 
@@ -9,7 +11,7 @@ exports.updateDonorProfileService = async (filter, donor) => {
   const result = await Donor.updateOne(
     filter,
     { $set: donor },
-    { runValidators: true }
+    { upsert: true, runValidators: true }
   );
 
   return result;
