@@ -3,6 +3,7 @@ const {
   updateDonorProfileService,
   donorInfoService,
   getAllDonorInfoService,
+  changeRoleService,
 } = require("../Services/donors.Services");
 
 exports.createDonor = async (req, res, next) => {
@@ -61,6 +62,22 @@ exports.donorInfo = async (req, res, next) => {
 exports.getAllDonorInfo = async (req, res, next) => {
   try {
     const result = await getAllDonorInfoService();
+
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: "Create Donor Request Failed",
+      error: error.message,
+    });
+  }
+};
+
+exports.changeRole = async (req, res, next) => {
+  try {
+    const email = req.params.email;
+    console.log(email);
+    const result = await changeRoleService(email);
 
     res.status(200).send(result);
   } catch (error) {

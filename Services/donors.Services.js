@@ -27,3 +27,13 @@ exports.getAllDonorInfoService = async (email) => {
 
   return result;
 };
+
+exports.changeRoleService = async (email) => {
+  console.log(email);
+  const result = await Donor.updateOne(
+    { email: email },
+    { role: "admin" },
+    { runValidators: true }
+  );
+  return result;
+};

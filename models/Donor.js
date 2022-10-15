@@ -24,6 +24,9 @@ const DonorShema = mongoose.Schema(
       type: String,
       trim: true,
     },
+    role: {
+      type: String,
+    },
     email: {
       type: String,
       unique: true,

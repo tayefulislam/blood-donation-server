@@ -8,7 +8,10 @@ router
   .post(donorController.createDonor)
   .patch(donorController.updateDonorProfile);
 
-router.route("/:email").get(donorController.donorInfo);
+router
+  .route("/:email")
+  .get(donorController.donorInfo)
+  .patch(donorController.changeRole);
 
 router.route("/admin/users").get(donorController.getAllDonorInfo);
 
