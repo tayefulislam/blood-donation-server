@@ -61,13 +61,14 @@ exports.donorInfo = async (req, res, next) => {
 
 exports.getAllDonorInfo = async (req, res, next) => {
   try {
-    const result = await getAllDonorInfoService();
+    const { email } = req.query;
 
+    const result = await getAllDonorInfoService(email);
     res.status(200).send(result);
   } catch (error) {
     res.status(400).json({
       status: "failed",
-      message: "Create Donor Request Failed",
+      message: "User Data Not Found",
       error: error.message,
     });
   }

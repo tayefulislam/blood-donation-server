@@ -23,9 +23,16 @@ exports.donorInfoService = async (email) => {
 };
 
 exports.getAllDonorInfoService = async (email) => {
-  const result = await Donor.find().sort({ _id: -1 });
+  console.log(email);
+  const adminInfo = await Donor.findOne({ email: email });
+  console.log(adminInfo);
 
-  return result;
+  if (adminInfo.role === "admin") {
+    const result = await Donor.find().sort({ _id: -1 });
+    return result;
+  } else {
+    return [];
+  }
 };
 
 exports.changeRoleService = async (email) => {
