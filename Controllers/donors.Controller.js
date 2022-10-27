@@ -4,6 +4,7 @@ const {
   donorInfoService,
   getAllDonorInfoService,
   changeRoleService,
+  createUserService,
 } = require("../Services/donors.Services");
 
 exports.createDonor = async (req, res, next) => {
@@ -90,4 +91,23 @@ exports.changeRole = async (req, res, next) => {
   }
 };
 
-// exports.createUser = async (req, res) => {};
+exports.createUser = async (req, res) => {
+  // const user = req.body;
+  console.log(req.body);
+
+  try {
+    const user = await createUserService(req.body);
+    console.log(user);
+    res.status(200).json({
+      status: "success",
+      message: "User Created",
+      result: user,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: "User Created failed",
+      error: error.message,
+    });
+  }
+};

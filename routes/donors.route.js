@@ -4,7 +4,7 @@ const router = express.Router();
 
 const donorController = require("../Controllers/donors.Controller");
 
-// router.route("/createUser").post()
+router.route("/createUser").post(donorController.createUser);
 router
   .route("/")
   .post(donorController.createDonor)

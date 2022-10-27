@@ -1,10 +1,21 @@
 const mongoose = require("mongoose");
 
+const bcrypt = require("bcryptjs");
+const validator = require("validator");
 const DonorShema = mongoose.Schema(
   {
+    email: {
+      type: String,
+      unique: true,
+      validate: [validator.isEmail, "Provide a valid Email"],
+      trim: true,
+      lowercase: true,
+      required: [true, "Email address is required"],
+    },
     name: {
       type: String,
       trim: true,
+      require: true,
     },
 
     number: {
@@ -27,13 +38,22 @@ const DonorShema = mongoose.Schema(
     role: {
       type: String,
     },
-    email: {
+
+    password: {
       type: String,
-      unique: true,
+      minLength: 6,
     },
   },
   { timestamps: true }
 );
+
+DonorShema.pre("save", function (next) {
+  const password = this.password;
+  const hashedPassword = bcrypt.hashSync(password);
+  console.log(password);
+  this.password = hashedPassword;
+  next();
+});
 
 const Donor = mongoose.model("Donors", DonorShema, "donors");
 module.exports = Donor;

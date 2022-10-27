@@ -44,3 +44,8 @@ exports.changeRoleService = async (email) => {
   );
   return result;
 };
+
+exports.createUserService = async (body) => {
+  const result = await Donor.create(body);
+  return result;
+};
