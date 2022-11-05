@@ -43,6 +43,7 @@ exports.getAllDonorInfoService = async (email, queries) => {
   console.log(adminInfo);
 
   if (adminInfo.role === "admin" && queries.search) {
+    console.log("hello");
     const result = await Donor.aggregate(pipeline).sort({ _id: -1 });
     return result;
   } else if (adminInfo.role === "admin") {
