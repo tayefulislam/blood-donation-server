@@ -1,5 +1,5 @@
 const Donor = require("../models/Donor");
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const {
   createDonorService,
   updateDonorProfileService,
@@ -136,8 +136,8 @@ exports.loginUser = async (req, res) => {
       });
     }
 
+    const isValidPassword = bcrypt.compareSync(password, user.password);
     // const isValidPassword = bcrypt.compareSync(password, user.password);
-    const isValidPassword = true;
 
     console.log(isValidPassword);
 

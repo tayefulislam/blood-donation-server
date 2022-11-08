@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
 const DonorShema = mongoose.Schema(
   {
     email: {
@@ -56,12 +57,12 @@ DonorShema.pre("save", function (next) {
   next();
 });
 
-// compare password
-// DonorShema.methods.comparePassword = function (password, hash) {
-//   console.log(password, hash);
-//   const isPasswordValid = bcrypt.compareSync(password, hash);
-//   return isPasswordValid;
-// };
+// // compare password
+DonorShema.methods.comparePassword = function (password, hash) {
+  console.log(password, hash);
+  const isPasswordValid = bcrypt.compare(password, hash);
+  return isPasswordValid;
+};
 
 const Donor = mongoose.model("Donors", DonorShema, "donors");
 module.exports = Donor;
