@@ -49,3 +49,8 @@ exports.createUserService = async (body) => {
   const result = await Donor.create(body);
   return result;
 };
+
+exports.loginUserService = async (email) => {
+  const user = await Donor.findOne({ email: email });
+  return user;
+};

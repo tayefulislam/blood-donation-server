@@ -1,3 +1,5 @@
+const Donor = require("../models/Donor");
+// const bcrypt = require("bcrypt");
 const {
   createDonorService,
   updateDonorProfileService,
@@ -5,6 +7,7 @@ const {
   getAllDonorInfoService,
   changeRoleService,
   createUserService,
+  loginUserService,
 } = require("../Services/donors.Services");
 
 exports.createDonor = async (req, res, next) => {
@@ -107,6 +110,52 @@ exports.createUser = async (req, res) => {
     res.status(400).json({
       status: "failed",
       message: "User Created failed",
+      error: error.message,
+    });
+  }
+};
+
+exports.loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    // check email and password availbe
+    if (!email || !password) {
+      return res.status(401).json({
+        status: "failed",
+        error: "Plase give email password",
+      });
+    }
+
+    const user = await loginUserService(email);
+    console.log(user);
+    // check user is exits or not
+    if (!user) {
+      return res.status(401).json({
+        status: "failed",
+        error: "User not found",
+      });
+    }
+
+    // const isValidPassword = bcrypt.compareSync(password, user.password);
+    const isValidPassword = true;
+
+    console.log(isValidPassword);
+
+    if (!isValidPassword) {
+      return res.status(401).json({
+        status: "failed",
+        error: "password is not correct",
+      });
+    }
+
+    res.status(200).json({
+      status: "success",
+      message: "Login Succeful",
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: "Failed to Login ,Plase try again",
       error: error.message,
     });
   }
