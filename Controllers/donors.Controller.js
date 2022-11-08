@@ -9,6 +9,7 @@ const {
   createUserService,
   loginUserService,
 } = require("../Services/donors.Services");
+const { genateToken } = require("../utils/token");
 
 exports.createDonor = async (req, res, next) => {
   try {
@@ -148,9 +149,14 @@ exports.loginUser = async (req, res) => {
       });
     }
 
+    const token = genateToken(user);
+
+    const { password: dataPassoword, ...others } = user.toObject();
+
     res.status(200).json({
       status: "success",
       message: "Login Succeful",
+      data: { user: others, token },
     });
   } catch (error) {
     res.status(400).json({
