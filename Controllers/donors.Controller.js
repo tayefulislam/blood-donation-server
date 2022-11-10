@@ -166,3 +166,7 @@ exports.loginUser = async (req, res) => {
     });
   }
 };
+
+// user presistans
+
+exports.getMe = () => {};

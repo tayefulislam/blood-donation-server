@@ -6,6 +6,8 @@ const donorController = require("../Controllers/donors.Controller");
 
 router.route("/createUser").post(donorController.createUser);
 router.route("/login").get(donorController.loginUser);
+
+router.route("/getMe", get(donorController.getMe));
 router
   .route("/")
   .post(donorController.createDonor)
