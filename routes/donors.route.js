@@ -3,11 +3,13 @@ const express = require("express");
 const router = express.Router();
 
 const donorController = require("../Controllers/donors.Controller");
+const { verifyToken } = require("../middlewares/verifyToken");
 
 router.route("/createUser").post(donorController.createUser);
 router.route("/login").get(donorController.loginUser);
 
-router.route("/getMe", get(donorController.getMe));
+router.route("/getMe").get(verifyToken, donorController.getMe);
+
 router
   .route("/")
   .post(donorController.createDonor)
