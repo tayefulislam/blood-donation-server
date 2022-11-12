@@ -11,7 +11,9 @@ exports.verifyToken = async (req, res, next) => {
         message: "failed to sign in",
       });
 
-      const decode = await promisify(jwt.verify)();
+      const decode = await promisify(jwt.verify)(token,process.env.);
+
+        
     }
   } catch (error) {}
 };
