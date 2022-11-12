@@ -169,4 +169,14 @@ exports.loginUser = async (req, res) => {
 
 // user presistans
 
-exports.getMe = () => {};
+exports.getMe = (req, res) => {
+  
+  try {
+
+    const token = 
+    
+  } catch (error) {
+    
+  }
+
+};
