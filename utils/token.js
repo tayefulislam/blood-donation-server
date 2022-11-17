@@ -8,7 +8,7 @@ exports.genateToken = (userInfo) => {
   };
 
   const token = jwt.sign(payload, secretToken, {
-    expiresIn: 20,
+    expiresIn: "7days",
   });
 
   return token;

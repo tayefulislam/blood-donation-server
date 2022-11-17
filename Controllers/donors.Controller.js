@@ -169,8 +169,18 @@ exports.loginUser = async (req, res) => {
 
 // user presistans
 
-// exports.getMe = (req, res) => {
-//   try {
-//     const token = "";
-//   } catch (error) {}
-// };
+exports.getMe = async (req, res) => {
+  try {
+    const result = await loginUserService(req?.user?.email);
+    res.status(200).json({
+      status: "success",
+      result,
+    });
+  } catch (error) {
+    res.status(403).json({
+      status: "fail",
+      message: "can't get data",
+      error: error.message,
+    });
+  }
+};
