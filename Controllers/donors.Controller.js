@@ -169,14 +169,8 @@ exports.loginUser = async (req, res) => {
 
 // user presistans
 
-exports.getMe = (req, res) => {
-  
-  try {
-
-    const token = 
-    
-  } catch (error) {
-    
-  }
-
-};
+// exports.getMe = (req, res) => {
+//   try {
+//     const token = "";
+//   } catch (error) {}
+// };
