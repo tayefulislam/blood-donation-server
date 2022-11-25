@@ -3,6 +3,7 @@ const {
   getBloodRequestsSerive,
   getBloodRequestByIdSerive,
 } = require("../Services/bloodRequests,Services");
+const { SendMail } = require("../utils/sendmail/sendEmail");
 
 exports.makeBloodRequests = async (req, res, next) => {
   try {
@@ -39,7 +40,7 @@ exports.getBloodRequests = async (req, res, next) => {
 
     const result = await getBloodRequestsSerive(queries);
 
-    res.status(200).send(result);
+    res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
       status: "failed",
