@@ -2,7 +2,7 @@ const Donor = require("../models/Donor");
 
 exports.createDonorService = async (newDonor) => {
   console.log(newDonor);
-  const result = await Donor.create(newDonor, { runValidators: true });
+  const result = await Donor.create(newDonor);
   console.log(result);
   return result;
 };

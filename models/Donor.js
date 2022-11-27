@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const DonorShema = mongoose.Schema(
   {
+    email: {
+      type: String,
+      unique: true,
+      index: true,
+    },
     name: {
       type: String,
       trim: true,
@@ -10,6 +15,8 @@ const DonorShema = mongoose.Schema(
     number: {
       type: String,
       trim: true,
+      unique: true,
+      index: true,
     },
     group: {
       type: String,
@@ -26,10 +33,14 @@ const DonorShema = mongoose.Schema(
     },
     role: {
       type: String,
+      enum: ["admin", "user"],
+      default: "user",
     },
-    email: {
+
+    status: {
       type: String,
-      unique: true,
+      enum: ["active", "inactive"],
+      default: "inactive",
     },
   },
   { timestamps: true }

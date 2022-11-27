@@ -12,7 +12,7 @@ exports.createDonor = async (req, res, next) => {
 
     const result = await createDonorService(newDonor);
 
-    res.status(200).send(result);
+    res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
       status: "failed",
