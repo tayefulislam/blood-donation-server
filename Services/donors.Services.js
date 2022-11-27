@@ -22,12 +22,31 @@ exports.donorInfoService = async (email) => {
   return result;
 };
 
-exports.getAllDonorInfoService = async (email) => {
+exports.getAllDonorInfoService = async (email, queries) => {
   console.log(email);
+
+  const pipeline = [
+    {
+      $search: {
+        index: "donorInfo",
+        text: {
+          query: queries.search,
+          path: {
+            wildcard: "*",
+          },
+          fuzzy: {},
+        },
+      },
+    },
+  ];
   const adminInfo = await Donor.findOne({ email: email });
   console.log(adminInfo);
 
-  if (adminInfo.role === "admin") {
+  if (adminInfo.role === "admin" && queries.search) {
+    console.log("hello");
+    const result = await Donor.aggregate(pipeline).sort({ _id: -1 });
+    return result;
+  } else if (adminInfo.role === "admin") {
     const result = await Donor.find().sort({ _id: -1 });
     return result;
   } else {

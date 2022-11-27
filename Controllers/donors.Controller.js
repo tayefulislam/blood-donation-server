@@ -61,9 +61,16 @@ exports.donorInfo = async (req, res, next) => {
 
 exports.getAllDonorInfo = async (req, res, next) => {
   try {
-    const { email } = req.query;
+    const { email, search } = req.query;
+    const queries = {};
 
-    const result = await getAllDonorInfoService(email);
+    if (search) {
+      queries.search = search;
+    }
+
+    console.log(queries);
+
+    const result = await getAllDonorInfoService(email, queries);
     res.status(200).send(result);
   } catch (error) {
     res.status(400).json({
