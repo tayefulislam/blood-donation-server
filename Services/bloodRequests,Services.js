@@ -8,7 +8,7 @@ exports.makeBloodRequestsService = async (newRequest) => {
 exports.getBloodRequestsSerive = async (queries) => {
   console.log(queries);
   const result = await bloodRequests.find(queries).sort({ _id: -1 });
-  // console.log(result);
+  console.log(result);
   return result;
 };
 exports.getBloodRequestByIdSerive = async (id) => {
