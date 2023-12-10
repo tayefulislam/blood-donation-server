@@ -11,6 +11,7 @@ exports.getBloodRequestsSerive = async (queries) => {
   console.log(result);
   return result;
 };
+
 exports.getBloodRequestByIdSerive = async (id) => {
   const result = await bloodRequests.find({ _id: id });
   console.log(result[0]);

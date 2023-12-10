@@ -4,6 +4,7 @@ const {
   donorInfoService,
   getAllDonorInfoService,
   changeRoleService,
+  getBloodDonorByGroupAndAreaService,
 } = require("../Services/donors.Services");
 
 exports.createDonor = async (req, res, next) => {
@@ -98,3 +99,30 @@ exports.changeRole = async (req, res, next) => {
 };
 
 // exports.createUser = async (req, res) => {};
+
+exports.getBloodDonorByGroupAndArea = async (req, res, next) => {
+  try {
+    let queries = {};
+    const { group, district } = req.query;
+
+    if (group) {
+      queries.group = group;
+    }
+
+    if (district) {
+      queries.district = district;
+    }
+
+    queries.role = "user";
+    queries.status = "active";
+
+    const results = await getBloodDonorByGroupAndAreaService(queries);
+    res.status(200).send(results);
+  } catch (error) {
+    res.status(400).json({
+      status: "Failed",
+      message: "Failed to get data ",
+      error: error.message,
+    });
+  }
+};

@@ -63,3 +63,9 @@ exports.changeRoleService = async (email) => {
   );
   return result;
 };
+
+exports.getBloodDonorByGroupAndAreaService = async (queries) => {
+  console.log(queries);
+  const results = await Donor.find(queries);
+  return results;
+};

@@ -36,11 +36,14 @@ const DonorShema = mongoose.Schema(
       enum: ["admin", "user"],
       default: "user",
     },
+    lastDonation: {
+      type: String,
+    },
 
     status: {
       type: String,
       enum: ["active", "inactive"],
-      default: "inactive",
+      default: "active",
     },
   },
   { timestamps: true }
