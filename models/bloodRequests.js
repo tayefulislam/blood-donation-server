@@ -57,11 +57,6 @@ const bloodRequestSchema = mongoose.Schema(
       trim: true,
       required: [true, "Please write down your comment"],
     },
-    gender: {
-      type: String,
-      trim: true,
-      required,
-    },
   },
   {
     timestamps: true,

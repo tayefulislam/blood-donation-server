@@ -11,6 +11,8 @@ exports.createDonor = async (req, res, next) => {
   try {
     const newDonor = req.body;
 
+    console.log("Create New ", newDonor);
+
     const result = await createDonorService(newDonor);
 
     res.status(200).json(result);
