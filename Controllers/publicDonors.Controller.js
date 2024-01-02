@@ -1,6 +1,7 @@
 const {
   createPublicDonorsServices,
   getAllPublicDonorsServices,
+  updateAreaOrLastDonationDateServices,
 } = require("../Services/publicDonorsServices");
 
 exports.createPublicDonors = async (req, res, next) => {
@@ -44,6 +45,23 @@ exports.getAllPublicDonors = async (req, res, next) => {
       status: "failed",
       message: "Create Donor Request Failed",
       error: error.message,
+    });
+  }
+};
+
+// updateAreaOrLastDonationDate
+
+exports.updateAreaOrLastDonationDate = async (req, res, next) => {
+  try {
+    const donor = req?.body;
+
+    const updateInfo = await updateAreaOrLastDonationDateServices(donor);
+    res.status(200).send(updateInfo);
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: "Failed to update District",
+      error: error?.message,
     });
   }
 };

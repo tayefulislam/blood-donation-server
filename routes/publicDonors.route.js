@@ -9,4 +9,8 @@ router
   .get(publicDonorController.getAllPublicDonors)
   .post(publicDonorController.createPublicDonors);
 
+router
+  .route("/updateAreaOrLastDonationDate")
+  .patch(publicDonorController.updateAreaOrLastDonationDate);
+
 module.exports = router;
