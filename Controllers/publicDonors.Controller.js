@@ -60,7 +60,7 @@ exports.updateAreaOrLastDonationDate = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({
       status: "failed",
-      message: "Failed to update District",
+      message: "Failed to update District / Last Donation Date",
       error: error?.message,
     });
   }
