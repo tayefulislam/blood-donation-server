@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const PublicDonors = require("../models/publicDonors");
+const DonorQuery = require("../models/donorQuery");
 
 // Email Sender
 const transporter = nodemailer.createTransport({
@@ -49,7 +50,43 @@ exports.createPublicDonorsServices = async (newPublicDonors) => {
 };
 
 exports.getAllPublicDonorsServices = async (queries) => {
+  // get all donors
   const result = await PublicDonors.find(queries);
+  // create query
+  const query = {
+    donorQueryByDistrictAndGroup: `${queries.group} = ${queries.district}`,
+  };
+  // check Ability
+  const checkAbility = await DonorQuery.find(query);
+
+  if (checkAbility[0]) {
+    // increase count by one
+    const update = { count: checkAbility[0].count + 1 };
+
+    await DonorQuery.findOneAndUpdate(query, update);
+    // console.log("Find one ", checkAbility[0].donorQueryByDistrictAndGroup);
+  } else {
+    // if not available create new
+
+    const newQuery = {
+      donorQueryByDistrictAndGroup: `${queries.group} = ${queries.district}`,
+      district: queries.district,
+      group: queries.group,
+    };
+
+    await DonorQuery.create(newQuery);
+  }
+
+  // save or update
+  // const doc = await DonorQuery.findOneAndUpdate(filter, filter, {
+  //   new: true,
+  //   upsert: true, // Make this update into an upsert
+  // });
+
+  // console.log(doc);
+
+  // const saveDonorQuery = DonorQuery.create(donorQueryByDistrictAndGroup);
+
   return result;
 };
 
