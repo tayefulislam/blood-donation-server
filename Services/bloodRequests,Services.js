@@ -12,6 +12,7 @@ const transporter = nodemailer.createTransport({
 
 async function sendMail(newRequest) {
   // console.log(newRequest);
+  console.log("Again");
   // send mail with defined transport object
   const info = await transporter.sendMail({
     from: `"Rokto Khujun" ${process.env.Email_Address}`, // sender address
