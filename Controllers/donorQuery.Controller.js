@@ -7,7 +7,7 @@ exports.donorQueryTotalHitCountService = async (req, res, next) => {
   console.log(getTotalHitLive);
 
   try {
-    res.status(200).send(getTotalHitLive);
+    res.status(200).send(getTotalHitLive[0]);
   } catch (error) {
     res.status(400).json({
       status: "failed",

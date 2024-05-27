@@ -5,7 +5,7 @@ exports.donorQueryTotalHitCountService = async () => {
   const getTotalHitCount = await DonorQuery.aggregate([
     {
       $group: {
-        _id: null,
+        _id: "totalDonorQueryHit",
         total: {
           $sum: "$count",
         },

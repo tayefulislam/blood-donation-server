@@ -6,4 +6,4 @@ const donorQueryController = require("../Controllers/donorQuery.Controller");
 
 router.route("/").get(donorQueryController.donorQueryTotalHitCountService);
 
-module.export = router;
+module.exports = router;
