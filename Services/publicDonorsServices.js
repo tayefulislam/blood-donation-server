@@ -87,7 +87,21 @@ exports.getAllPublicDonorsServices = async (queries) => {
 
   // const saveDonorQuery = DonorQuery.create(donorQueryByDistrictAndGroup);
 
-  return result;
+  // How to Get Oldest data Depend No date....
+
+  function sortByLastDonation(a, b) {
+    const dateA = new Date(a.lastDonation);
+    const dateB = new Date(b.lastDonation);
+    return dateA - dateB;
+  }
+
+  // Sort the donors array using the sortByLastDonation function
+  const rankedDonors = result.sort(sortByLastDonation);
+
+  // Print the ranked donors (oldest to newest)
+  // console.log(rankedDonors);
+
+  return rankedDonors;
 };
 
 // updated public donor Area or Last donation date
