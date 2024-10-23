@@ -1,22 +1,18 @@
 const mongoose = require("mongoose");
 
-const DonorShema = mongoose.Schema(
+const PublicDonorsSchema = mongoose.Schema(
   {
-    email: {
+    number: {
       type: String,
+      required: true,
       unique: true,
       index: true,
     },
+
     name: {
       type: String,
       trim: true,
-    },
-
-    number: {
-      type: String,
-      trim: true,
-      unique: true,
-      index: true,
+      required: true,
     },
     group: {
       type: String,
@@ -45,9 +41,20 @@ const DonorShema = mongoose.Schema(
       enum: ["active", "inactive"],
       default: "active",
     },
+    gender: {
+      type: String,
+      trim: true,
+    },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-const Donor = mongoose.model("Donors", DonorShema, "donors");
-module.exports = Donor;
+const PublicDonors = mongoose.model(
+  "PublicDonors",
+  PublicDonorsSchema,
+  "PublicDonors"
+);
+
+module.exports = PublicDonors;

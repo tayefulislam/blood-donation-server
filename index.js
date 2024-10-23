@@ -7,7 +7,7 @@ const uri = process.env.URI;
 console.log(uri);
 
 mongoose.connect(uri).then(() => {
-  console.log("database");
+  console.log(uri + "database");
 });
 
 app.listen(port, () => {
